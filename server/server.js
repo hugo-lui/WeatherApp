@@ -41,20 +41,20 @@ async function getWeather(req, res, next) {
 
 app.get("/", getWeather, (req, res) => {
     console.log("Working");
-    res.status(200).render("sky");
+    res.status(200).json({area: "sky", question: true, button: true, back: false, about: false, input: true});
 })
 
 app.post("/", getWeather, (req, res) => {
     console.log("Working");
-    res.status(200).render("sky");
+    res.status(200).json({area: "sky", question: true, button: true, back: false, about: false, input: true});
 })
 
 app.get("/about", (req, res) => {
-    res.status(200).render("about");
+    res.status(200).json({area: "", question: false, button: false, back: true, about: true, input: false});
 })
 
 app.post("/about", (req, res) => {
-    res.status(200).render("about");
+    res.status(200).json({area: "", question: false, button: false, back: true, about: true, input: false});
 })
 
 app.get("/secret", (req, res) => {

@@ -8,7 +8,7 @@ router.route("/").get((req, res) => {
         res.status(200).render("secret");
     }
     else if(req.body.colour.trim().toUpperCase() === "BLUE") {
-        res.status(200).render("sun");
+        res.status(200).json({area: "sun", question: true, button: true, back: false, about: false, input: true});
     }
     else {
         res.status(200).json({message: "Incorrect."});
