@@ -7,13 +7,19 @@ import SubmitButton from "./components/SubmitButton";
 import AboutButton from "./components/AboutButton";
 import BackButton from "./components/BackButton";
 
-function App() {
+export default function App() {
   const [endpoint, setEndpoint] = useState("/");
-  const [data, setData] = useState({area: "sky", question: true, button: true, backButton: false, about: false, input: true});
+  const [data, setData] = useState({area: "sky", question: true, button: true, back: false, about: false, input: true});
   const [value, setValue] = useState("");
 
   useEffect(() => {
-
+    fetch(endpoint).then((response) => {
+      response.json();
+    }).then((data) => {
+      console.log(data);
+    }).catch((err) => {
+      console.log(err);
+    })
   }, [endpoint]);
 
   const handleChange = (event) => {
@@ -21,7 +27,7 @@ function App() {
   }
 
   const handleSubmitClick = () => {
-    if(value === "blue") {
+    if(value.trim().toLowerCase() === "blue") {
       console.log("correct");
     }
     else if(value === "bLuE") {
@@ -46,8 +52,8 @@ function App() {
       {data.input ? <Input onChange={handleChange}/> : null}
       {data.button ? <SubmitButton onClick={handleSubmitClick}/> : null}
       {data.button ? <AboutButton onClick={handleAboutClick}/> : null}
+      {data.about ? <About/> : null}
+      {data.back ? <BackButton onClick={handleBackClick}/> : null}
     </div>
   );
 }
-
-export default App;
