@@ -39,7 +39,7 @@ export default function App() {
   }
 
   const handleAboutClick = () => {
-    setEndpoint("/about");
+    setEndpoint("http://localhost:5000/about");
   }
 
   const handleBackClick = () => {
