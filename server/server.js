@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const answersRouter = require("./routes/answers");
 const citiesRouter = require("./routes/cities");
 const url = "https://api.open-meteo.com/v1/forecast?";
@@ -12,7 +13,10 @@ app.use(express.urlencoded({extended: false}));
 app.use("/sun", answersRouter);
 app.use("/", citiesRouter);
 app.use(express.static(__dirname + "/views/styles"));
-
+let corsOptions = {
+    origin: "http://localhost:3000"
+};
+app.use(cors(corsOptions));
 app.listen(PORT, () => {
     console.log("Server is running on port: " + PORT);
 })
