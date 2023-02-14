@@ -1,4 +1,4 @@
-.button {
+.blue {
     background-color: #FFFFFF;
     border: 2px solid #006373;
     color: #006373;
@@ -12,7 +12,7 @@
     margin: auto;
 }
 
-.button:hover {
+.blue:hover {
     color: #FFFFFF;
     background-color: #006373;
 }
@@ -20,4 +20,23 @@
 .container {
     display: grid;
     margin-top: 20px;
+}
+
+.orange {
+    background-color: #FFFFFF;
+    border: 2px solid #b35a20;
+    color: #b35a20;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 8px;
+    transition-duration: 0.4s;
+    width: 100px;
+    margin: auto;
+}
+
+.orange:hover {
+    color: #FFFFFF;
+    background-color: #b35a20;
 }

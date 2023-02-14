@@ -10,6 +10,7 @@ import BackButton from "./components/BackButton";
 export default function App() {
   const [endpoint, setEndpoint] = useState("/sky");
   const [data, setData] = useState({});
+  const [colour, setColour] = useState("blue");
   const [value, setValue] = useState("");
 
   useEffect(() => {
@@ -30,6 +31,10 @@ export default function App() {
     })
   }, [endpoint]);
 
+  useEffect(() => {
+      data.area === "sun" ? setColour("orange") : setColour("blue");
+  }, [data.area]);
+
   const handleChange = (event) => {
     setValue(event.target.value);
   }
@@ -48,17 +53,17 @@ export default function App() {
   }
 
   const handleBackClick = () => {
-    setEndpoint("/sun");
+    setEndpoint("/sky");
   }
 
   return(
     <div>
-      {data.question ? <Question area={data.area}/> : null}
+      {data.question ? <Question area={data.area} colour={colour}/> : null}
       {data.input ? <Input onChange={handleChange}/> : null}
-      {data.button ? <SubmitButton onClick={handleSubmitClick}/> : null}
-      {data.button ? <AboutButton onClick={handleAboutClick}/> : null}
-      {data.about ? <About/> : null}
-      {data.back ? <BackButton onClick={handleBackClick}/> : null}
+      {data.button ? <SubmitButton onClick={handleSubmitClick} colour={colour}/> : null}
+      {data.button ? <AboutButton onClick={handleAboutClick} colour={colour}/> : null}
+      {data.about ? <About colour={colour}/> : null}
+      {data.back ? <BackButton onClick={handleBackClick} colour={colour}/> : null}
     </div>
   );
 }

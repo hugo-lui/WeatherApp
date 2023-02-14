@@ -1,8 +1,8 @@
 import React from "react";
-import "./Question.css";
+import "./Text.css";
 
 export default function Question(props) {
   return(
-    <h1>What colour is the {props.area} on a clear day?</h1>
+    <h1 id={props.colour}>What colour is the {props.area} on a clear day?</h1>
   );
 }

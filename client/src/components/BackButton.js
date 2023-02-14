@@ -3,6 +3,6 @@ import "./Button.css";
 
 export default function BackButton(props) {
   return(
-    <div className="container"><button className="button" onClick={props.onClick}>Back</button></div>
+    <div className="container"><button className={props.colour} onClick={props.onClick}>Home</button></div>
   );
 }
