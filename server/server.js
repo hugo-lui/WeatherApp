@@ -2,12 +2,12 @@ const express = require("express");
 const app = express();
 const sunRouter = require("./routes/sun");
 const citiesRouter = require("./routes/cities");
+
 const url = "https://api.open-meteo.com/v1/forecast?";
 const settings = "&timezone=GMT&daily=precipitation_sum"
-const param = 10;
+const rain = 10;
 const PORT = process.env.PORT || 5000;
 
-app.use(express.urlencoded({extended: false}));
 app.use("/sky", sunRouter);
 app.use("/", citiesRouter);
 
@@ -24,7 +24,7 @@ async function getWeather(req, res, next) {
             const jsonResponse = await response.json();
             let sums = 0;
             jsonResponse["daily"]["precipitation_sum"].forEach(element => sums += element);
-            if(sums > param) {
+            if(sums > rain) {
                 res.status(200).json({message: "It has rained too much in Toronto. Please come back later."});
             }
             else {
