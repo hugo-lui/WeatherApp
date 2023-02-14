@@ -8,14 +8,22 @@ import AboutButton from "./components/AboutButton";
 import BackButton from "./components/BackButton";
 
 export default function App() {
-  const [endpoint, setEndpoint] = useState("/");
-  const [data, setData] = useState({area: "sky", question: true, button: true, back: false, about: false, input: true});
+  const [endpoint, setEndpoint] = useState("/sky");
+  const [data, setData] = useState({});
   const [value, setValue] = useState("");
 
   useEffect(() => {
-    fetch(endpoint).then((response) => {
-      response.json();
+    fetch(endpoint, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({user: "hi"})
+    }).then((response) => {
+      if(response.ok) {
+        return response.json();
+      }
     }).then((data) => {
+      setData(data);
       console.log(data);
     }).catch((err) => {
       console.log(err);
@@ -27,23 +35,20 @@ export default function App() {
   }
 
   const handleSubmitClick = () => {
-    if(value.trim().toLowerCase() === "blue") {
-      console.log("correct");
+    if(data.area === "sky") {
+      setEndpoint("/sky/sun");
     }
-    else if(value === "bLuE") {
-      console.log("secret");
-    }
-    else {
-      console.log("incorrect");
+    else if(data.area === "sun") {
+      setEndpoint("/sky/sun/result");
     }
   }
 
   const handleAboutClick = () => {
-    setEndpoint("http://localhost:5000/about");
+    setEndpoint("/about");
   }
 
   const handleBackClick = () => {
-    setEndpoint("/");
+    setEndpoint("/sun");
   }
 
   return(
