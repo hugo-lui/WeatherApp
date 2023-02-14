@@ -1,22 +1,16 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
-const answersRouter = require("./routes/answers");
+const sunRouter = require("./routes/sun");
 const citiesRouter = require("./routes/cities");
 const url = "https://api.open-meteo.com/v1/forecast?";
 const settings = "&timezone=GMT&daily=precipitation_sum"
 const param = 10;
 const PORT = process.env.PORT || 5000;
 
-app.set("view engine", "ejs");
 app.use(express.urlencoded({extended: false}));
-app.use("/sun", answersRouter);
+app.use("/sky", sunRouter);
 app.use("/", citiesRouter);
-app.use(express.static(__dirname + "/views/styles"));
-let corsOptions = {
-    origin: "http://localhost:3000"
-};
-app.use(cors(corsOptions));
+
 app.listen(PORT, () => {
     console.log("Server is running on port: " + PORT);
 })
@@ -43,12 +37,12 @@ async function getWeather(req, res, next) {
     }
 }
 
-app.get("/", getWeather, (req, res) => {
+app.get("/sky", getWeather, (req, res) => {
     console.log("Working");
     res.status(200).json({area: "sky", question: true, button: true, back: false, about: false, input: true});
 })
 
-app.post("/", getWeather, (req, res) => {
+app.post("/sky", getWeather, (req, res) => {
     console.log("Working");
     res.status(200).json({area: "sky", question: true, button: true, back: false, about: false, input: true});
 })
