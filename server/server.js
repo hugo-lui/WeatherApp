@@ -5,7 +5,7 @@ const citiesRouter = require("./routes/cities");
 
 const url = "https://api.open-meteo.com/v1/forecast?";
 const settings = "&timezone=GMT&daily=precipitation_sum"
-const rain = 10;
+const rain = 1000;
 const PORT = process.env.PORT || 5000;
 
 app.use("/sky", sunRouter);
