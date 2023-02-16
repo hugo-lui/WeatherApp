@@ -3,11 +3,11 @@ const app = express();
 const sunRouter = require("./routes/sun");
 const citiesRouter = require("./routes/cities");
 
-const url = "https://api.open-meteo.com/v1/forecast?";
-const settings = "&timezone=GMT&daily=precipitation_sum"
 const rain = 1000;
 const PORT = process.env.PORT || 5000;
 
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 app.use("/sky", sunRouter);
 app.use("/", citiesRouter);
 
@@ -17,8 +17,7 @@ app.listen(PORT, () => {
 
 async function getWeather(req, res, next) {
     try {
-        const location = "latitude=43.70&longitude=-79.42"
-        const endpoint = url + location + settings;
+        const endpoint = "https://api.open-meteo.com/v1/forecast?latitude=43.70&longitude=-79.42&timezone=GMT&daily=precipitation_sum"
         const response = await fetch(endpoint);
         if(response.ok) {
             const jsonResponse = await response.json();
@@ -33,7 +32,7 @@ async function getWeather(req, res, next) {
         }
     }     
     catch(err) {
-        res.status(400).send(err);
+        res.status(400).json({error: err});
     }
 }
 
