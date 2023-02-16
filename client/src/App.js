@@ -20,8 +20,8 @@ export default function App() {
       fetch(endpoint, {
         method: "POST",
         mode: "no-cors",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({user: "hi"})
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: JSON.stringify({user: value})
       }).then((response) => {
         if(response.ok) {
           return response.json();
