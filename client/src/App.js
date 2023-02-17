@@ -7,9 +7,10 @@ import Input from "./components/Input";
 import SubmitButton from "./components/SubmitButton";
 import AboutButton from "./components/AboutButton";
 import BackButton from "./components/BackButton";
+import Message from "./components/Message";
 
 export default function App() {
-  const [endpoint, setEndpoint] = useState("/sky");
+  const [endpoint, setEndpoint] = useState("");
   const [data, setData] = useState({});
   const [colour, setColour] = useState("blue");
   const [value, setValue] = useState("");
@@ -45,8 +46,6 @@ export default function App() {
         console.log(err);
       })
     }
-    console.log(endpoint);
-    console.log(path);
   }, [endpoint, path]);
 
   useEffect(() => {
@@ -90,12 +89,29 @@ export default function App() {
           {data.input ? <Input onChange={handleChange}/> : null}
           {data.button ? <Link to="/sky/sun/result"><SubmitButton onClick={handleSubmitClick} colour={colour}/></Link> : null}
           {data.button ? <Link to="/about"><AboutButton onClick={handleAboutClick} colour={colour}/></Link> : null}
+          {data.message ? <Message colour={colour} sentence={data.message}/> : null}
+        </div>
+      }/>
+      <Route path="/sky/sun/result" element={
+        <div>
+          {data.question ? <Question area={data.area} colour={colour}/> : null}
+          {data.message ? <Message colour={colour} sentence={data.message}/> : null}
         </div>
       }/>
       <Route path="/about" element={
         <div>
           {data.about ? <About colour={colour}/> : null}
           {data.back ? <Link to="/sky"><BackButton onClick={handleBackClick} colour={colour}/></Link> : null}
+        </div>
+      }/>
+      <Route path="/secret" element={
+        <div>
+          {data.message ? <Message colour={colour} sentence={data.message}/> : null}
+        </div>
+      }/>
+      <Route path="/weather/:city" element={
+        <div>
+          <Message colour={colour} sentence={data.message}/>
         </div>
       }/>
     </Routes>
