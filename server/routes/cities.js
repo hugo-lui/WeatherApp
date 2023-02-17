@@ -14,7 +14,7 @@ const cities = {
 }
 
 router.get("/weather/:city", (req, res) => {
-    res.status(200).json({amount: `It has rained ${res.raining}mm in the last 24 hours in ${req.params.city}`});
+    res.status(200).json({message: `It has rained ${res.raining}mm in the last 24 hours in ${req.params.city}`});
 })
 
 router.param("city", async (req, res, next, city) => {
@@ -29,7 +29,7 @@ router.param("city", async (req, res, next, city) => {
             next();
         }
         else {
-            res.status(400).json({error: "This city does not exist in the database."});
+            res.status(200).json({message: "This city does not exist in the database."});
         }
     }
     catch(err) {
