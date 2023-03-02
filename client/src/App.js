@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Link, Route, Routes} from "react-router-dom";
+import {Link, Route, Routes, Navigate} from "react-router-dom";
 import "./App.css";
 import Question from "./components/Question";
 import About from "./components/About";
@@ -10,14 +10,14 @@ import BackButton from "./components/BackButton";
 import Message from "./components/Message";
 
 export default function App() {
-  const [endpoint, setEndpoint] = useState("");
+  const [endpoint, setEndpoint] = useState("/sky");
   const [data, setData] = useState({});
   const [colour, setColour] = useState("blue");
   const [value, setValue] = useState("");
   const path = window.location.pathname;
 
   useEffect(() => {
-    if(endpoint === path) {
+    if(endpoint === path || (path === "/")) {
       fetch(endpoint, {
         method: "POST",
         mode: "no-cors",
@@ -75,9 +75,12 @@ export default function App() {
 
   return(
     <Routes>
+      <Route path="/" element={
+        <Navigate to="/sky"/>
+      }/>
       <Route path="/sky" element={
         <div>
-          {data.question ? <Question area={data.area} colour={colour}/> : null}
+          {data.area ? <Question area={data.area} colour={colour}/> : null}
           {data.input ? <Input onChange={handleChange}/> : null}
           {data.button ? <Link to="/sky/sun"><SubmitButton onClick={handleSubmitClick} colour={colour}/></Link> : null}
           {data.button ? <Link to="/about"><AboutButton onClick={handleAboutClick} colour={colour}/></Link> : null}
@@ -85,7 +88,7 @@ export default function App() {
       }/>
       <Route path="/sky/sun" element={
         <div>
-          {data.question ? <Question area={data.area} colour={colour}/> : null}
+          {data.area ? <Question area={data.area} colour={colour}/> : null}
           {data.input ? <Input onChange={handleChange}/> : null}
           {data.button ? <Link to="/sky/sun/result"><SubmitButton onClick={handleSubmitClick} colour={colour}/></Link> : null}
           {data.button ? <Link to="/about"><AboutButton onClick={handleAboutClick} colour={colour}/></Link> : null}
@@ -94,7 +97,7 @@ export default function App() {
       }/>
       <Route path="/sky/sun/result" element={
         <div>
-          {data.question ? <Question area={data.area} colour={colour}/> : null}
+          {data.area ? <Question area={data.area} colour={colour}/> : null}
           {data.message ? <Message colour={colour} sentence={data.message}/> : null}
         </div>
       }/>
