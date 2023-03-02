@@ -1,11 +1,15 @@
 const express = require("express");
 const router = express.Router();
+const db = require("../db");
+const server = require("../server");
+
+//router.use(server.getWeather);
 
 router.route("/sun").get((req, res) => {
-    res.status(200).json({message: "", area: "sky", question: true, button: false, back: false, about: false, input: false});
+    res.status(200).json({message: "", area: "sky", button: false, back: false, about: false, input: false});
 }).post(async (req, res) => {
-    //res.status(200).json({area: "sun", question: true, button: true, back: false, about: false, input: true});
     try {
+        //res.status(200).json({message: "", area: "sun", button: true, back: false, about: false, input: true});
         res.json(req.body);
     }
     catch(err) {
@@ -14,7 +18,7 @@ router.route("/sun").get((req, res) => {
 })
 
 router.route("/sun/result").get((req, res) => {
-    res.status(200).json({message: "", area: "sun", question: true, button: false, back: false, about: false, input: false});
+    res.status(200).json({message: "", area: "sun", button: false, back: false, about: false, input: false});
 }).post((req, res) => {
     if(req.body.colour.trim().toUpperCase() === "YELLOW") {
         res.status(200).json({message: "The password is 'bLuE'"});

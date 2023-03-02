@@ -1,6 +1,6 @@
 CREATE DATABASE colours;
 
 CREATE TABLE answers(
-    id SERIAL PRIMARY KEY;
-    input VARCHAR(255);
-)
+    input_id SERIAL PRIMARY KEY,
+    input VARCHAR(255)
+);

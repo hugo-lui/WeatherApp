@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const sunRouter = require("./routes/sun");
 const citiesRouter = require("./routes/cities");
-const db = require("./db");
 
 const rain = 1000;
 const PORT = process.env.PORT || 5000;
@@ -39,26 +38,28 @@ async function getWeather(req, res, next) {
 
 app.get("/sky", getWeather, (req, res) => {
     console.log("Working");
-    res.status(200).json({message: "", area: "sky", question: true, button: true, back: false, about: false, input: true});
+    res.status(200).json({message: "", area: "sky", button: true, back: false, about: false, input: true});
 })
 
 app.post("/sky", getWeather, (req, res) => {
     console.log("Working");
-    res.status(200).json({message: "", area: "sky", question: true, button: true, back: false, about: false, input: true});
+    res.status(200).json({message: "", area: "sky", button: true, back: false, about: false, input: true});
 })
 
-app.get("/about", (req, res) => {
-    res.status(200).json({message: "", area: "", question: false, button: false, back: true, about: true, input: false});
+app.get("/about", getWeather, (req, res) => {
+    res.status(200).json({message: "", area: "", button: false, back: true, about: true, input: false});
 })
 
-app.post("/about", (req, res) => {
-    res.status(200).json({message: "", area: "", question: false, button: false, back: true, about: true, input: false});
+app.post("/about", getWeather, (req, res) => {
+    res.status(200).json({message: "", area: "", button: false, back: true, about: true, input: false});
 })
 
-app.get("/secret", (req, res) => {
+app.get("/secret", getWeather, (req, res) => {
     res.status(200).json({message: "What are you doing here."});
 })
 
-app.post("/secret", (req, res) => {
+app.post("/secret", getWeather, (req, res) => {
     res.status(200).json({message: "You solved the puzzle."});
 })
+
+exports.getWeather = getWeather;
